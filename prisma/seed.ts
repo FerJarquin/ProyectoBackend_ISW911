@@ -22,7 +22,14 @@ async function main() {
           {NombreCliente: 'Natalia Rios', CedulaCliente: 12345098, TelefonoCliente: 987654326, CorreoCliente: 'natalia.rios@example.com', ContrasenaCliente: 'password1234'},
           {NombreCliente: 'Andres Castro', CedulaCliente: 23456098, TelefonoCliente: 123456784, CorreoCliente: 'andres.castro@example.com', ContrasenaCliente: 'password5678'},
           {NombreCliente: 'Elena Vargas', CedulaCliente: 34567098, TelefonoCliente: 987654327, CorreoCliente: 'elena.vargas@example.com', ContrasenaCliente: 'password9012'},
-          {NombreCliente: 'Ricardo Perez', CedulaCliente: 45678098, TelefonoCliente: 123456785, CorreoCliente: 'ricardo.perez@example.com', ContrasenaCliente: 'password3456'}
+          {NombreCliente: 'Ricardo Perez', CedulaCliente: 45678098, TelefonoCliente: 123456785, CorreoCliente: 'ricardo.perez@example.com', ContrasenaCliente: 'password3456'},
+          {NombreCliente: 'Gabriela Torres', CedulaCliente: 56789023, TelefonoCliente: 987654328, CorreoCliente: 'gabriela.torres@example.com', ContrasenaCliente: 'password6789'},
+          {NombreCliente: 'Roberto Sánchez', CedulaCliente: 67890134, TelefonoCliente: 123456786, CorreoCliente: 'roberto.sanchez@example.com', ContrasenaCliente: 'password90123'},
+          {NombreCliente: 'Verónica Martínez', CedulaCliente: 78901245, TelefonoCliente: 987654329, CorreoCliente: 'veronica.martinez@example.com', ContrasenaCliente: 'password23456'},
+          {NombreCliente: 'Alejandro López', CedulaCliente: 89012356, TelefonoCliente: 123456787, CorreoCliente: 'alejandro.lopez@example.com', ContrasenaCliente: 'password56789'},
+          {NombreCliente: 'Marcela Herrera', CedulaCliente: 90123467, TelefonoCliente: 987654330, CorreoCliente: 'marcela.herrera@example.com', ContrasenaCliente: 'password89012'},
+          {NombreCliente: 'Daniel Gutierrez', CedulaCliente: 12345089, TelefonoCliente: 123456788, CorreoCliente: 'daniel.gutierrez@example.com', ContrasenaCliente: 'password12345'}
+
         ],
       })
 
@@ -31,7 +38,7 @@ async function main() {
         data: [
           {NombreEmpleado: 'Carlos Lopez',TelefonoEmpleado: 987654321},
           {NombreEmpleado: 'Juliana Ortiz', TelefonoEmpleado: 987654328},
-          {NombreEmpleado: 'Fernando Alvarez', TelefonoEmpleado: 123456786},
+          {NombreEmpleado: 'Fernando Cespedes', TelefonoEmpleado: 123456786},
           {NombreEmpleado: 'Carmen Delgado', TelefonoEmpleado: 987654329},
           {NombreEmpleado: 'Esteban Morales', TelefonoEmpleado: 123456787},
           {NombreEmpleado: 'Paola Rivas', TelefonoEmpleado: 987654330}
@@ -52,8 +59,70 @@ async function main() {
         ],
       })
 
+    //Creacion de Solicitudes  
+    await prisma.solicitud.createMany({
+        data: [
+            {ComentarioSolicitud: 'Necesito pintar mi oficina con colores neutros para crear un ambiente profesional.', ClienteId: 1, ServicioId: 3},
+            {ComentarioSolicitud: 'Quiero remodelar mi cocina para hacerla más funcional y moderna.', ClienteId: 2, ServicioId: 2},
+            {ComentarioSolicitud: 'Busco pintar mi casa con colores vivos que reflejen mi personalidad.', ClienteId: 3, ServicioId: 3},
+            {ComentarioSolicitud: 'Estoy interesado en construir una extensión en mi casa para tener más espacio.', ClienteId: 4, ServicioId: 1},
+            {ComentarioSolicitud: 'Necesito renovar la fachada de mi negocio para atraer más clientes.', ClienteId: 5, ServicioId: 2},
+            {ComentarioSolicitud: 'Busco pintar el exterior de mi casa para protegerla del clima.', ClienteId: 6, ServicioId: 3},
+            {ComentarioSolicitud: 'Quiero construir una terraza en mi jardín para disfrutar del aire libre.', ClienteId: 7, ServicioId: 1},
+            {ComentarioSolicitud: 'Necesito remodelar mi baño para adaptarlo a mis necesidades de movilidad.', ClienteId: 8, ServicioId: 2},
+            {ComentarioSolicitud: 'Busco pintar las paredes de mi dormitorio con un diseño creativo.', ClienteId: 9, ServicioId: 3},
+            {ComentarioSolicitud: 'Estoy interesado en construir una piscina en mi patio trasero.', ClienteId: 10, ServicioId: 1},
+            {ComentarioSolicitud: 'Necesito remodelar mi oficina para optimizar el espacio de trabajo.', ClienteId: 11, ServicioId: 2},
+            {ComentarioSolicitud: 'Busco pintar el techo de mi sala para darle un aspecto renovado.', ClienteId: 12, ServicioId: 3},
+            {ComentarioSolicitud: 'Quiero construir una cochera adicional para mi casa.', ClienteId: 13, ServicioId: 1},
+            {ComentarioSolicitud: 'Estoy interesado en remodelar mi sala de estar para hacerla más acogedora.', ClienteId: 14, ServicioId: 2},
+            {ComentarioSolicitud: 'Quiero remodelar mi jardín para crear un espacio de relajación al aire libre.', ClienteId: 17, ServicioId: 2}
+        ],
+      })
 
+    //Creacion de Usuarios  
+    await prisma.usuarios.createMany({
+        data: [
+            { NombreUsuario: 'Fernando Cespedes',CorreoUsuario: 'admin@example.com',ContrasenaUsuario: 'admin123', Rol: 'Administrador'},
+            {NombreUsuario: 'Laura García', CorreoUsuario: 'asistente@example.com', ContrasenaUsuario: 'asistente123', Rol: 'Asistente'},
+            {NombreUsuario: 'Carlos Martínez', CorreoUsuario: 'auditor@example.com', ContrasenaUsuario: 'auditor123', Rol: 'Auditoria'},
+            {NombreUsuario: 'María Rodríguez', CorreoUsuario: 'admin2@example.com', ContrasenaUsuario: 'admin1234', Rol: 'Administrador'},
+            {NombreUsuario: 'Pedro López', CorreoUsuario: 'asistente2@example.com', ContrasenaUsuario: 'asistente1234', Rol: 'Asistente'}  
+        ],
+      })
 
+    //Creacion de Programacion 
+    await prisma.programacion.createMany({
+        data: [
+            {UsuarioId: 1, EstadoProgramacion: 'Pendiente',SolicitudId: 1},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 2},
+            {UsuarioId: 3, EstadoProgramacion: 'Pendiente',SolicitudId: 3},
+            {UsuarioId: 4, EstadoProgramacion: 'Pendiente',SolicitudId: 4},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 5},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 6},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 7},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 8},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 9},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 10},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 11},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 12},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 13},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 14},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 15}
+
+        ],
+      })
+
+     //Creacion de Auditoria  
+     await prisma.auditoria.createMany({
+        data: [
+            {UsuarioId: 1,Accion: 'Creación de usuario'},
+            {UsuarioId: 3,Accion: 'Creación de reporte'},
+            {UsuarioId: 4,Accion: 'Eliminar cliente'},
+            {UsuarioId: 2,Accion: 'Corregir Solicitud'},
+            {UsuarioId: 5,Accion: 'Editar cliente'},
+        ],
+      })
 }
 
 
