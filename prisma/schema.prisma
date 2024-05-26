@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  ClienteId Int @id @default(autoincrement())
+  NombreCliente String
+  CedulaCliente Int
+  TelefonoCliente Int
+  CorreoCliente String
+  ContrasenaCliente String
+  SolicitudCliente  Solicitud[] @relation("ModeloClienteSolicitud")
+}
+
+
+model Empleados {
+  EmpleadosId Int @id @default(autoincrement())
+  NombreEmpleado String
+  TelefonoEmpleado Int
+  ServicioDeEmpleado Servicios[] @relation("ModeloEmpleadoServicio")
+}
+
+model Servicios {
+  ServicioId Int @id @default(autoincrement())
+  NombreServicio String
+  DescripcionServicio String
+  EmpleadoEncargado Empleados @relation("ModeloEmpleadoServicio", fields: [EmpleadosId], references: [EmpleadosId])
+  EmpleadosId Int
+  SolicitudServicio Solicitud[] @relation("ModeloSolicitudServicio")
+}
+
+model Solicitud {
+  SolicitudId Int @id @default(autoincrement())
+  FechaSolicitud DateTime @default(now())
+  ComentarioSolicitud String
+  SolicitudCliente Cliente @relation("ModeloClienteSolicitud", fields: [ClienteId], references: [ClienteId])
+  ClienteId Int
+  ProgramacionSolicitud Programacion[] @relation("ModeloProgramacionSolicitud")
+  ServicioId Int
+  ServcioSolicitud Servicios @relation("ModeloSolicitudServicio", fields: [ServicioId], references: [ServicioId])
+}
+
+model Usuario {
+  UsuarioId Int @id @default(autoincrement())
+  NombreUsuario String
+  CorreoUsuario String
+  ContrasenaUsuario String
+  Rol Rol @default(Asistente)
+  ProgramacionUsuario  Programacion[] @relation("ModeloUsuarioProgramacion")
+  AuditoriaUsuario Auditoria [] @relation("ModeloUsuarioAuditoriaUsuario")
+}
+
+model Programacion {
+  ProgramacionId Int @id @default(autoincrement())
+  ActualizadoEn DateTime @default(now()) @updatedAt
+  UsuarioId Int
+  EstadoProgramacion Estado @default(Pendiente)
+  SolicitudId Int
+  SolicitudProgramda Solicitud @relation("ModeloProgramacionSolicitud", fields: [SolicitudId], references: [SolicitudId])
+  ProgramacionPorUsuarion Usuario @relation("ModeloUsuarioProgramacion", fields: [UsuarioId], references: [UsuarioId])
+}
+
+model Auditoria {
+  AuditoriaId Int @id @default(autoincrement())
+  UsuarioId Int
+  Accion String
+  Fecha DateTime @default(now())
+  UsuarioAuditoria  Usuario  @relation("ModeloUsuarioAuditoriaUsuario", fields: [UsuarioId], references: [UsuarioId])
+}
+
+
+enum Estado {
+  Pendiente
+  Aprobada
+  Denegada
+}
+
+enum Rol {
+  Administrador
+  Asistente 
+  Auditoria
+}
