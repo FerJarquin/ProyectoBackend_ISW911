@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Cliente {
+model Clientes {
   ClienteId Int @id @default(autoincrement())
   NombreCliente String
   CedulaCliente Int
@@ -44,14 +44,14 @@ model Solicitud {
   SolicitudId Int @id @default(autoincrement())
   FechaSolicitud DateTime @default(now())
   ComentarioSolicitud String
-  SolicitudCliente Cliente @relation("ModeloClienteSolicitud", fields: [ClienteId], references: [ClienteId])
+  SolicitudCliente Clientes @relation("ModeloClienteSolicitud", fields: [ClienteId], references: [ClienteId])
   ClienteId Int
   ProgramacionSolicitud Programacion[] @relation("ModeloProgramacionSolicitud")
   ServicioId Int
   ServcioSolicitud Servicios @relation("ModeloSolicitudServicio", fields: [ServicioId], references: [ServicioId])
 }
 
-model Usuario {
+model Usuarios {
   UsuarioId Int @id @default(autoincrement())
   NombreUsuario String
   CorreoUsuario String
@@ -68,7 +68,7 @@ model Programacion {
   EstadoProgramacion Estado @default(Pendiente)
   SolicitudId Int
   SolicitudProgramda Solicitud @relation("ModeloProgramacionSolicitud", fields: [SolicitudId], references: [SolicitudId])
-  ProgramacionPorUsuarion Usuario @relation("ModeloUsuarioProgramacion", fields: [UsuarioId], references: [UsuarioId])
+  ProgramacionPorUsuarion Usuarios @relation("ModeloUsuarioProgramacion", fields: [UsuarioId], references: [UsuarioId])
 }
 
 model Auditoria {
@@ -76,7 +76,7 @@ model Auditoria {
   UsuarioId Int
   Accion String
   Fecha DateTime @default(now())
-  UsuarioAuditoria  Usuario  @relation("ModeloUsuarioAuditoriaUsuario", fields: [UsuarioId], references: [UsuarioId])
+  UsuarioAuditoria  Usuarios  @relation("ModeloUsuarioAuditoriaUsuario", fields: [UsuarioId], references: [UsuarioId])
 }
 
 
