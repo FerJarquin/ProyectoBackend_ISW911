@@ -28,7 +28,22 @@ async function main() {
           {NombreCliente: 'Verónica Martínez', CedulaCliente: 78901245, TelefonoCliente: 987654329, CorreoCliente: 'veronica.martinez@example.com', ContrasenaCliente: 'password23456'},
           {NombreCliente: 'Alejandro López', CedulaCliente: 89012356, TelefonoCliente: 123456787, CorreoCliente: 'alejandro.lopez@example.com', ContrasenaCliente: 'password56789'},
           {NombreCliente: 'Marcela Herrera', CedulaCliente: 90123467, TelefonoCliente: 987654330, CorreoCliente: 'marcela.herrera@example.com', ContrasenaCliente: 'password89012'},
-          {NombreCliente: 'Daniel Gutierrez', CedulaCliente: 12345089, TelefonoCliente: 123456788, CorreoCliente: 'daniel.gutierrez@example.com', ContrasenaCliente: 'password12345'}
+          {NombreCliente: 'Daniel Gutierrez', CedulaCliente: 12345089, TelefonoCliente: 123456788, CorreoCliente: 'daniel.gutierrez@example.com', ContrasenaCliente: 'password12345'},
+          {NombreCliente: 'Carolina Soto', CedulaCliente: 23456789, TelefonoCliente: 987654331, CorreoCliente: 'carolina.soto@example.com', ContrasenaCliente: 'password67890'},
+          {NombreCliente: 'Andrea Rodríguez', CedulaCliente: 34567890, TelefonoCliente: 123456789, CorreoCliente: 'andrea.rodriguez@example.com', ContrasenaCliente: 'password123456'},
+          {NombreCliente: 'Hugo García', CedulaCliente: 45678901, TelefonoCliente: 987654332, CorreoCliente: 'hugo.garcia@example.com', ContrasenaCliente: 'password234567'},
+          {NombreCliente: 'Laura Martínez', CedulaCliente: 56789012, TelefonoCliente: 123456790, CorreoCliente: 'laura.martinez@example.com', ContrasenaCliente: 'password345678'},
+          {NombreCliente: 'Diego López', CedulaCliente: 67890123, TelefonoCliente: 987654333, CorreoCliente: 'diego.lopez@example.com', ContrasenaCliente: 'password456789'},
+          {NombreCliente: 'Valeria Gutiérrez', CedulaCliente: 78901234, TelefonoCliente: 123456791, CorreoCliente: 'valeria.gutierrez@example.com', ContrasenaCliente: 'password567890'},
+          {NombreCliente: 'Santiago Torres', CedulaCliente: 89012345, TelefonoCliente: 987654334, CorreoCliente: 'santiago.torres@example.com', ContrasenaCliente: 'password678901'},
+          {NombreCliente: 'Camila Ramírez', CedulaCliente: 90123456, TelefonoCliente: 123456792, CorreoCliente: 'camila.ramirez@example.com', ContrasenaCliente: 'password789012'},
+          {NombreCliente: 'Mariana Sánchez', CedulaCliente: 12345098, TelefonoCliente: 987654335, CorreoCliente: 'mariana.sanchez@example.com', ContrasenaCliente: 'password890123'},
+          {NombreCliente: 'Sebastián Vargas', CedulaCliente: 23456098, TelefonoCliente: 123456793, CorreoCliente: 'sebastian.vargas@example.com', ContrasenaCliente: 'password901234'},
+          {NombreCliente: 'Daniela Pérez', CedulaCliente: 34567098, TelefonoCliente: 987654336, CorreoCliente: 'daniela.perez@example.com', ContrasenaCliente: 'password012345'},
+          {NombreCliente: 'Martín Gómez', CedulaCliente: 45678098, TelefonoCliente: 123456794, CorreoCliente: 'martin.gomez@example.com', ContrasenaCliente: 'password1234567'},
+          {NombreCliente: 'Valentina López', CedulaCliente: 56789023, TelefonoCliente: 987654337, CorreoCliente: 'valentina.lopez@example.com', ContrasenaCliente: 'password2345678'},
+          {NombreCliente: 'Felipe Castro', CedulaCliente: 67890134, TelefonoCliente: 123456795, CorreoCliente: 'felipe.castro@example.com', ContrasenaCliente: 'password3456789'},
+          {NombreCliente: 'Natalia Rivas', CedulaCliente: 78901245, TelefonoCliente: 987654338, CorreoCliente: 'natalia.rivas@example.com', ContrasenaCliente: 'password4567890'},
 
         ],
       })
@@ -76,7 +91,18 @@ async function main() {
             {ComentarioSolicitud: 'Busco pintar el techo de mi sala para darle un aspecto renovado.', ClienteId: 12, ServicioId: 3},
             {ComentarioSolicitud: 'Quiero construir una cochera adicional para mi casa.', ClienteId: 13, ServicioId: 1},
             {ComentarioSolicitud: 'Estoy interesado en remodelar mi sala de estar para hacerla más acogedora.', ClienteId: 14, ServicioId: 2},
-            {ComentarioSolicitud: 'Quiero remodelar mi jardín para crear un espacio de relajación al aire libre.', ClienteId: 17, ServicioId: 2}
+            {ComentarioSolicitud: 'Quiero remodelar mi jardín para crear un espacio de relajación al aire libre.', ClienteId: 17, ServicioId: 2},
+            {ComentarioSolicitud: 'Necesito instalar sistemas eléctricos nuevos en mi casa.', ClienteId: 15, ServicioId: 4},
+            {ComentarioSolicitud: 'Quiero mejorar la red de comunicaciones de mi empresa.', ClienteId: 16, ServicioId: 5},
+            {ComentarioSolicitud: 'Estoy buscando un sistema de bombeo para mi piscina.', ClienteId: 17, ServicioId: 6},
+            {ComentarioSolicitud: 'Necesito una remodelación completa de mi cocina.', ClienteId: 18, ServicioId: 2},
+            {ComentarioSolicitud: 'Busco pintar las paredes exteriores de mi tienda.', ClienteId: 19, ServicioId: 3},
+            {ComentarioSolicitud: 'Quiero construir una nueva área de juego para mis hijos en el jardín.', ClienteId: 20, ServicioId: 1},
+            {ComentarioSolicitud: 'Necesito una instalación eléctrica para mi nuevo local comercial.', ClienteId: 21, ServicioId: 4},
+            {ComentarioSolicitud: 'Busco instalar un sistema de seguridad en mi hogar.', ClienteId: 22, ServicioId: 5},
+            {ComentarioSolicitud: 'Quiero construir una pérgola en mi patio trasero.', ClienteId: 23, ServicioId: 1},
+            {ComentarioSolicitud: 'Necesito remodelar mi baño principal.', ClienteId: 24, ServicioId: 2}
+
         ],
       })
 
@@ -108,7 +134,16 @@ async function main() {
             {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 12},
             {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 13},
             {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 14},
-            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 15}
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 15},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 16},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 17},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 18},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 19},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 20},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 21},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 22},
+            {UsuarioId: 5, EstadoProgramacion: 'Pendiente',SolicitudId: 23},
+            {UsuarioId: 2, EstadoProgramacion: 'Pendiente',SolicitudId: 24}
 
         ],
       })
