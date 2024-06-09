@@ -1,0 +1,107 @@
+//Empleado
+###
+//Ver todo los empleados ✅
+GET http://localhost/empleados/ HTTP/1.1
+
+###
+
+//Ver Empleado por ID ✅
+GET http://localhost/empleados/3 HTTP/1.1
+
+###
+
+//Crear empleado ❌
+POST http://localhost/provincias HTTP/1.1
+Content-Type: application/json
+
+{
+  "Provincia": "Nueva provincia - Fernanda Jarquin"
+}
+
+###
+
+//Eliminar empleado ❌
+DELETE http://localhost/provincias HTTP/1.1
+Content-Type: application/json
+
+{
+  "ProvinciaId": 8
+}
+
+###
+
+//Actualizar un empleado ❌
+PUT http://localhost/provincias/5 HTTP/1.1
+Content-Type: application/json
+{
+  "Provincia": "La provincia de Fer Jarquin (v2)"
+}
+
+//Cliente
+
+###
+//Ver todo los clientes ✅
+GET http://localhost/clientes/ HTTP/1.1
+
+###
+
+//Ver clientes por ID ✅
+GET http://localhost/empleados/3 HTTP/1.1
+###
+
+//Servicios
+
+//Ver todo los Servicios ✅
+###
+GET http://localhost/servicios/ HTTP/1.1
+
+###
+
+//Ver Servicio por ID ✅
+GET http://localhost/servicios/6 HTTP/1.1
+###
+
+// Solicitudes
+
+//Ver todo los Solicitudes ✅
+GET http://localhost/solicitudes/ HTTP/1.1
+
+###
+
+//Ver Solicitud por ID ✅
+GET http://localhost/solicitudes/22 HTTP/1.1
+###
+
+// Programacion
+
+//Ver todo las programaciones  ✅
+GET http://localhost/programaciones/ HTTP/1.1
+
+###
+
+//Ver programacion por ID ✅
+GET http://localhost/programaciones/2 HTTP/1.1
+###
+
+// Usuarios
+
+//Ver todo los usuarios  ✅
+GET http://localhost/usuarios/ HTTP/1.1
+
+###
+
+//Ver usuario por ID ✅
+GET http://localhost/usuarios/2 HTTP/1.1
+###
+
+
+// Auditoria
+
+//Ver todos registros de auditoria  ✅
+GET http://localhost/auditoria/ HTTP/1.1
+
+###
+
+//Ver auditoria por ID ✅
+GET http://localhost/auditoria/2 HTTP/1.1
+###

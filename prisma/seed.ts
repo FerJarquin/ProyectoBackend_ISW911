@@ -64,12 +64,12 @@ async function main() {
     //Creacion de Servicios  
     await prisma.servicios.createMany({
         data: [
-            {NombreServicio: 'Construcción General (Comercial y Residencial)', DescripcionServicio: 'Servicios integrales de construcción para proyectos comerciales y residenciales.', EmpleadosId: 1},
-            {NombreServicio: 'Remodelación (Comercial y Residencial)', DescripcionServicio: 'Remodelación de espacios comerciales y residenciales, modernizando estructuras existentes.', EmpleadosId: 2},
-            {NombreServicio: 'Pintura', DescripcionServicio: 'Servicios profesionales de pintura para interiores y exteriores.', EmpleadosId: 3},
-            {NombreServicio: 'Sistemas Eléctricos', DescripcionServicio: 'Soluciones en sistemas eléctricos para edificaciones comerciales y residenciales.', EmpleadosId: 4},
-            {NombreServicio: 'Comunicación y Redes', DescripcionServicio: 'Instalación y mantenimiento de sistemas de comunicación y redes.', EmpleadosId: 5},
-            {NombreServicio: 'Sistema de bombeo', DescripcionServicio: 'Servicios especializados en sistemas de bombeo para proyectos civiles.', EmpleadosId: 6}
+            {NombreServicio: 'Construcción General (Comercial y Residencial)', DescripcionServicio: 'Servicios integrales de construcción para proyectos comerciales y residenciales.', EmpleadoId: 1},
+            {NombreServicio: 'Remodelación (Comercial y Residencial)', DescripcionServicio: 'Remodelación de espacios comerciales y residenciales, modernizando estructuras existentes.', EmpleadoId: 2},
+            {NombreServicio: 'Pintura', DescripcionServicio: 'Servicios profesionales de pintura para interiores y exteriores.', EmpleadoId: 3},
+            {NombreServicio: 'Sistemas Eléctricos', DescripcionServicio: 'Soluciones en sistemas eléctricos para edificaciones comerciales y residenciales.', EmpleadoId: 4},
+            {NombreServicio: 'Comunicación y Redes', DescripcionServicio: 'Instalación y mantenimiento de sistemas de comunicación y redes.', EmpleadoId: 5},
+            {NombreServicio: 'Sistema de bombeo', DescripcionServicio: 'Servicios especializados en sistemas de bombeo para proyectos civiles.', EmpleadoId: 6}
                 
         ],
       })

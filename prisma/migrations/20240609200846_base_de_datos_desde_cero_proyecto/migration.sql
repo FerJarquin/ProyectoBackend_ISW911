@@ -12,11 +12,11 @@ CREATE TABLE `Clientes` (
 
 -- CreateTable
 CREATE TABLE `Empleados` (
-    `EmpleadosId` INTEGER NOT NULL AUTO_INCREMENT,
+    `EmpleadoId` INTEGER NOT NULL AUTO_INCREMENT,
     `NombreEmpleado` VARCHAR(191) NOT NULL,
     `TelefonoEmpleado` INTEGER NOT NULL,
 
-    PRIMARY KEY (`EmpleadosId`)
+    PRIMARY KEY (`EmpleadoId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -24,7 +24,7 @@ CREATE TABLE `Servicios` (
     `ServicioId` INTEGER NOT NULL AUTO_INCREMENT,
     `NombreServicio` VARCHAR(191) NOT NULL,
     `DescripcionServicio` VARCHAR(191) NOT NULL,
-    `EmpleadosId` INTEGER NOT NULL,
+    `EmpleadoId` INTEGER NOT NULL,
 
     PRIMARY KEY (`ServicioId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -73,7 +73,7 @@ CREATE TABLE `Auditoria` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Servicios` ADD CONSTRAINT `Servicios_EmpleadosId_fkey` FOREIGN KEY (`EmpleadosId`) REFERENCES `Empleados`(`EmpleadosId`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Servicios` ADD CONSTRAINT `Servicios_EmpleadoId_fkey` FOREIGN KEY (`EmpleadoId`) REFERENCES `Empleados`(`EmpleadoId`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Solicitud` ADD CONSTRAINT `Solicitud_ClienteId_fkey` FOREIGN KEY (`ClienteId`) REFERENCES `Clientes`(`ClienteId`) ON DELETE RESTRICT ON UPDATE CASCADE;

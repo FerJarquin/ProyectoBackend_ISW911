@@ -25,7 +25,7 @@ model Clientes {
 
 
 model Empleados {
-  EmpleadosId Int @id @default(autoincrement())
+  EmpleadoId Int @id @default(autoincrement())
   NombreEmpleado String
   TelefonoEmpleado Int
   ServicioDeEmpleado Servicios[] @relation("ModeloEmpleadoServicio")
@@ -35,8 +35,8 @@ model Servicios {
   ServicioId Int @id @default(autoincrement())
   NombreServicio String
   DescripcionServicio String
-  EmpleadoEncargado Empleados @relation("ModeloEmpleadoServicio", fields: [EmpleadosId], references: [EmpleadosId])
-  EmpleadosId Int
+  EmpleadoEncargado Empleados @relation("ModeloEmpleadoServicio", fields: [EmpleadoId], references: [EmpleadoId])
+  EmpleadoId Int
   SolicitudServicio Solicitud[] @relation("ModeloSolicitudServicio")
 }
 
