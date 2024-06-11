@@ -1,30 +1,69 @@
-//Todos los endpoint de mi Usuario estan aqui 
-const express = require("express"); 
-
-const ServicioUsuarios = require ('/./../services/Usuarios.js')
-
-const Usuarios = new ServicioUsuarios();
-
+const { PrismaClient } = require("@prisma/client")
 
 const prisma = new PrismaClient();
 
-const Router = express.Router();
+class Usuarios {
 
-Router.get("/", async (solicitud, respuesta) => {
-  const Usuarios = await listadoDeUsuarios(solicitud.params.UsuarioId);
-  respuesta.json(Usuarios);
-});
+  constructor() {
 
-Router.get("/:UsuarioId", async (solicitud, respuesta) => {
-  const Usuarios = await listadoDeUsuarios(solicitud.params.UsuarioId);
-  respuesta.json(Usuarios);
-});
+  };
 
-function listadoDeUsuarios(UsuarioId) {
+  async Agregar(Usuario) {
+    let resultado;
+    try {
+      resultado = await prisma.usuarios.create({
+        data: {
+          NombreUsuario: Usuario.NombreUsuario,
+          CorreoUsuario: Usuario.CorreoUsuario, 
+          ContrasenaUsuario: Usuario.ContrasenaUsuario
+        }
+      });
+    } catch (error) {
+      console.error(`No se pudo insertar el Usuario ${Usuario} debido al error: ${error}`);
+    }
+    return resultado;
+  }; 
 
-  return Usuarios.Listar(UsuarioId)
- 
+  async Actualizar(UsuarioId, Usuario) {
+    let resultado; 
+    try {
+      resultado = await prisma.usuarios.update({
+        where: { UsuarioId: parseInt(UsuarioId) },
+        data: { Usuario: Usuario },
+      });
+    } catch (error) {
+      console.error(`No se pudo actualizar la Usuario ${UsuarioId} debido al error: ${error}`);
+    }
+    return resultado;
+  };
+
+  async Borrar(UsuarioId) {
+    let resultado;
+    try {
+      resultado = await prisma.usuarios.delete({
+        where: {
+          UsuarioId: parseInt(UsuarioId),
+        },
+      });
+    } catch (error) {
+      console.error(`No se pudo borrar la Usuario ${UsuarioId} debido al error: ${error}`);
+    }
+    return resultado;
+  };
+
+  Listar(UsuarioId) {
+    let Usuarios;
+    if (UsuarioId === undefined) {
+      Usuarios = prisma.usuarios.findMany();
+    } else {
+      Usuarios = prisma.usuarios.findMany({
+        where: {
+          UsuarioId: parseInt(UsuarioId),
+        },
+      });
+    }
+    return Usuarios;
+  };
 }
 
-
-module.exports = Router; 
+module.exports = Usuarios;
