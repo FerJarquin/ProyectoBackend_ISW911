@@ -9,9 +9,9 @@ class Usuarios {
   };
 
   async Agregar(Usuario) {
-    let resultado;
+  
     try {
-      resultado = await prisma.usuarios.create({
+     await prisma.usuarios.create({
         data: {
           NombreUsuario: Usuario.NombreUsuario,
           CorreoUsuario: Usuario.CorreoUsuario, 
@@ -21,15 +21,15 @@ class Usuarios {
     } catch (error) {
       console.error(`No se pudo insertar el Usuario ${Usuario} debido al error: ${error}`);
     }
-    return resultado;
+   
   }; 
 
-  async Actualizar(UsuarioId, Usuario) {
+  async Actualizar(UsuarioId, NombreUsuario) {
     let resultado; 
     try {
       resultado = await prisma.usuarios.update({
         where: { UsuarioId: parseInt(UsuarioId) },
-        data: { Usuario: Usuario },
+        data: { NombreUsuario: NombreUsuario },
       });
     } catch (error) {
       console.error(`No se pudo actualizar la Usuario ${UsuarioId} debido al error: ${error}`);

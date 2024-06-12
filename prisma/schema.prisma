@@ -43,6 +43,7 @@ model Servicios {
 model Solicitud {
   SolicitudId Int @id @default(autoincrement())
   FechaSolicitud DateTime @default(now())
+  FechaCita DateTime @default(now())
   ComentarioSolicitud String
   SolicitudCliente Clientes @relation("ModeloClienteSolicitud", fields: [ClienteId], references: [ClienteId])
   ClienteId Int

@@ -13,7 +13,7 @@ function routerAPI (app) {
     app.use('/solicitudes', rotuterSolicitudes);
     app.use('/programaciones', rotuterProgramaciones);
     app.use('/usuarios', rotuterUsuarios);
-    app.use('/auditoria', rotuterAuditorias);
+    app.use('/auditorias', rotuterAuditorias);
 }
 
 module.exports = routerAPI; 

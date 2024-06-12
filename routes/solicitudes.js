@@ -1,35 +1,49 @@
+const express = require('express');
+const ServicioSolicitud = require('./../services/solicitudes.js');
+const { Console } = require('console');
 
-const express = require("express"); 
-const { PrismaClient } = require("@prisma/client")
-
-const prisma = new PrismaClient();
+const Solicitudes = new ServicioSolicitud();
 
 const Router = express.Router();
 
-Router.get("/", async (solicitud, respuesta) => {
-  const Solicitud = await listadoDeSolicitud(solicitud.params.SolicitudId);
-  respuesta.json(Solicitud);
+
+Router.get('/', async (solicitud, respuesta) => {
+  const Solicitudes = await listadoDeSolicitudes(solicitud.params.SolicitudId);
+  respuesta.json(Solicitudes);
 });
 
-Router.get("/:SolicitudId", async (solicitud, respuesta) => {
-  const Solicitud = await listadoDeSolicitud(solicitud.params.SolicitudId);
-  respuesta.json(Solicitud);
+Router.get('/:SolicitudId', async (solicitud, respuesta) => {
+  const Solicitudes = await listadoDeSolicitudes(solicitud.params.SolicitudId);
+  respuesta.json(Solicitudes);
 });
 
-
-function listadoDeSolicitud(SolicitudId) {
-  let Solicitud;
-  if (SolicitudId === undefined) {
-    Solicitud = prisma.Solicitud.findMany();
-  } else {
-    Solicitud = prisma.Solicitud.findMany({
-      where: {
-        SolicitudId: parseInt(SolicitudId),
-      },
-    });
-  }
-  return Solicitud;
+function listadoDeSolicitudes(SolicitudId) {
+  return Solicitudes.Listar(SolicitudId);
 }
 
+Router.post('/', async (solicitud, respuesta) => {
 
-module.exports = Router; 
+  const Solicitud = {
+    FechaCita: solicitud.body.FechaCita,
+    ComentarioSolicitud: solicitud.body.ComentarioSolicitud, 
+    ClienteId: solicitud.body.ClienteId, 
+    ServicioId:solicitud.body.ServicioId
+  }
+  return Solicitudes.Agregar(Solicitud)
+});
+
+Router.delete('/:SolicitudId', async (solicitud, respuesta) => {
+
+  respuesta.json(Solicitudes.Borrar(solicitud.params.SolicitudId))
+
+});
+
+Router.put('/:SolicitudId', async (solicitud, respuesta) => {
+const { SolicitudId } = solicitud.params;
+const { FechaSolicitud } = solicitud.body;
+respuesta.json(Solicitudes.Actualizar(SolicitudId, FechaSolicitud));
+});
+
+
+module.exports = Router;
+//#endregion

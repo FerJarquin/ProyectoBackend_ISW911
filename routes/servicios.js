@@ -1,35 +1,48 @@
+const express = require('express');
+const ServicioServicio = require('./../services/servicios.js');
+const { Console } = require('console');
 
-const express = require("express"); 
-const { PrismaClient } = require("@prisma/client")
-
-const prisma = new PrismaClient();
+const Servicios = new ServicioServicio();
 
 const Router = express.Router();
 
-Router.get("/", async (solicitud, respuesta) => {
+
+Router.get('/', async (solicitud, respuesta) => {
   const Servicios = await listadoDeServicios(solicitud.params.ServicioId);
   respuesta.json(Servicios);
 });
 
-Router.get("/:ServicioId", async (solicitud, respuesta) => {
+Router.get('/:ServicioId', async (solicitud, respuesta) => {
   const Servicios = await listadoDeServicios(solicitud.params.ServicioId);
   respuesta.json(Servicios);
 });
-
 
 function listadoDeServicios(ServicioId) {
-  let Servicios;
-  if (ServicioId === undefined) {
-    Servicios = prisma.Servicios.findMany();
-  } else {
-    Servicios = prisma.Servicios.findMany({
-      where: {
-        ServicioId: parseInt(ServicioId),
-      },
-    });
-  }
-  return Servicios;
+  return Servicios.Listar(ServicioId);
 }
 
+Router.post('/', async (solicitud, respuesta) => {
 
-module.exports = Router; 
+  const Servicio = {
+    NombreServicio: solicitud.body.NombreServicio,
+    DescripcionServicio: solicitud.body.DescripcionServicio,
+    EmpleadoId: solicitud.body.EmpleadoId
+  }
+  return Servicios.Agregar(Servicio)
+});
+
+Router.delete('/:ServicioId', async (solicitud, respuesta) => {
+
+  respuesta.json(Servicios.Borrar(solicitud.params.ServicioId))
+
+});
+
+Router.put('/:ServicioId', async (solicitud, respuesta) => {
+const { ServicioId } = solicitud.params;
+const { NombreServicio } = solicitud.body;
+respuesta.json(Servicios.Actualizar(ServicioId, NombreServicio));
+});
+
+
+module.exports = Router;
+//#endregion

@@ -1,5 +1,6 @@
 const express = require('express');
 const ServicioUsuario = require('./../services/usuarios.js');
+const { Console } = require('console');
 
 const Usuarios = new ServicioUsuario();
 
@@ -21,8 +22,13 @@ function listadoDeUsuarios(UsuarioId) {
 }
 
 Router.post('/', async (solicitud, respuesta) => {
-  return Usuarios.Agregar(solicitud.body.Usuario)
 
+  const Usuario = {
+    NombreUsuario: solicitud.body.NombreUsuario,
+    CorreoUsuario: solicitud.body.CorreoUsuario, 
+    ContrasenaUsuario: solicitud.body.ContrasenaUsuario
+  }
+  return Usuarios.Agregar(Usuario)
 });
 
 Router.delete('/:UsuarioId', async (solicitud, respuesta) => {
@@ -32,12 +38,11 @@ Router.delete('/:UsuarioId', async (solicitud, respuesta) => {
 });
 
 Router.put('/:UsuarioId', async (solicitud, respuesta) => {
-
-  const { UsuarioId } = solicitud.params;
-  const { Usuario } = solicitud.body;
-  respuesta.json(Usuarios.Actualizar(UsuarioId, Usuario));
-
+const { UsuarioId } = solicitud.params;
+const { NombreUsuario } = solicitud.body;
+respuesta.json(Usuarios.Actualizar(UsuarioId, NombreUsuario));
 });
+
 
 module.exports = Router;
 //#endregion

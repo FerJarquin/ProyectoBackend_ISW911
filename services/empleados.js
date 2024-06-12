@@ -1,52 +1,67 @@
-//Todos los endpoint de mi Empleado estan aqui 
-const express = require("express"); 
-
-const ServicioEmpleados = require ('/./../services/empleados.js')
-
-const Empleados = new ServicioEmpleados();
+const { PrismaClient } = require("@prisma/client")
 
 const prisma = new PrismaClient();
 
-const Router = express.Router();
+class Empleados {
 
-Router.get("/", async (solicitud, respuesta) => {
-  const Empleados = await listadoDeEmpleados(solicitud.params.EmpleadosId);
-  respuesta.json(Empleados);
-});
+  constructor() {
 
-Router.get("/:EmpleadosId", async (solicitud, respuesta) => {
-  const Empleados = await listadoDeEmpleados(solicitud.params.EmpleadosId);
-  respuesta.json(Empleados);
-});
+  };
 
+  async Agregar(Empleado) {
+  
+    try {
+     await prisma.empleados.create({
+        data: {
+          NombreEmpleado: Empleado.NombreEmpleado,
+          TelefonoEmpleado: Empleado.TelefonoEmpleado
+        }
+      });
+    } catch (error) {
+      console.error(`No se pudo insertar el Empleado ${Empleado} debido al error: ${error}`);
+    }
+  }; 
 
-function listadoDeEmpleados(EmpleadosId) {
+  async Actualizar(EmpleadoId, NombreEmpleado) {
+    let resultado; 
+    try {
+      resultado = await prisma.Empleados.update({
+        where: { EmpleadoId: parseInt(EmpleadoId) },
+        data: { NombreEmpleado: NombreEmpleado },
+      });
+    } catch (error) {
+      console.error(`No se pudo actualizar la Empleado ${EmpleadoId} debido al error: ${error}`);
+    }
+    return resultado;
+  };
 
-  return Empleados.Listar(EmpleadosId)
+  async Borrar(EmpleadoId) {
+    let resultado;
+    try {
+      resultado = await prisma.Empleados.delete({
+        where: {
+          EmpleadoId: parseInt(EmpleadoId),
+        },
+      });
+    } catch (error) {
+      console.error(`No se pudo borrar la Empleado ${EmpleadoId} debido al error: ${error}`);
+    }
+    return resultado;
+  };
 
+  Listar(EmpleadoId) {
+    let Empleados;
+    if (EmpleadoId === undefined) {
+      Empleados = prisma.Empleados.findMany();
+    } else {
+      Empleados = prisma.Empleados.findMany({
+        where: {
+          EmpleadoId: parseInt(EmpleadoId),
+        },
+      });
+    }
+    return Empleados;
+  };
 }
 
-Router.post('/', async (solicitud, respuesta) => {
-  const { Empleado } = solicitud.body;
-  
-  respuesta.json(Empleado.Agregar(solicitud.body.Empleado));
-});
-
-
-
-Router.delete('/:EmpleadoId', async (solicitud, respuesta) => {
-  
-  respuesta.json(Empleados.Borrar(solicitud.body.EmpleadoId));
-  
-});
-
-
-Router.put('/:EmpleadosId', async (solicitud, respuesta) => {
-  const { EmpleadosId } = solicitud.params;
-  const { Empleado } = solicitud.body;
-  
-  respuesta.json(Empleado.Actualizar(EmpleadosId, Empleado));
-});
-
-
-module.exports = Router; 
+module.exports = Empleados;

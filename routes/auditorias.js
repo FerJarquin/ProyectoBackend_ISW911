@@ -1,34 +1,48 @@
-const express = require("express"); 
-const { PrismaClient } = require("@prisma/client")
+const express = require('express');
+const ServicioAuditoria = require('./../services/auditorias.js');
+const { Console } = require('console');
 
-const prisma = new PrismaClient();
+const Auditorias = new ServicioAuditoria();
 
 const Router = express.Router();
 
-Router.get("/", async (solicitud, respuesta) => {
-  const Auditoria = await listadoDeAuditoria(solicitud.params.AuditoriaId);
-  respuesta.json(Auditoria);
+
+Router.get('/', async (solicitud, respuesta) => {
+  const Auditorias = await listadoDeAuditorias(solicitud.params.AuditoriaId);
+  respuesta.json(Auditorias);
 });
 
-Router.get("/:AuditoriaId", async (solicitud, respuesta) => {
-  const Auditoria = await listadoDeAuditoria(solicitud.params.AuditoriaId);
-  respuesta.json(Auditoria);
+Router.get('/:AuditoriaId', async (solicitud, respuesta) => {
+  const Auditorias = await listadoDeAuditorias(solicitud.params.AuditoriaId);
+  respuesta.json(Auditorias);
 });
 
-
-function listadoDeAuditoria(AuditoriaId) {
-  let Auditoria;
-  if (AuditoriaId === undefined) {
-    Auditoria = prisma.Auditoria.findMany();
-  } else {
-    Auditoria = prisma.Auditoria.findMany({
-      where: {
-        AuditoriaId: parseInt(AuditoriaId),
-      },
-    });
-  }
-  return Auditoria;
+function listadoDeAuditorias(AuditoriaId) {
+  return Auditorias.Listar(AuditoriaId);
 }
 
+Router.post('/', async (solicitud, respuesta) => {
 
-module.exports = Router; 
+  const Auditoria = {
+            UsuarioId: solicitud.body.UsuarioId,
+            Accion: solicitud.body.Accion, 
+            Fecha: solicitud.body.Fecha
+  }
+  return Auditorias.Agregar(Auditoria)
+});
+
+Router.delete('/:AuditoriaId', async (solicitud, respuesta) => {
+
+  respuesta.json(Auditorias.Borrar(solicitud.params.AuditoriaId))
+
+});
+
+Router.put('/:AuditoriaId', async (solicitud, respuesta) => {
+const { AuditoriaId } = solicitud.params;
+const { Accion } = solicitud.body;
+respuesta.json(Auditorias.Actualizar(AuditoriaId, Accion));
+});
+
+
+module.exports = Router;
+//#endregion

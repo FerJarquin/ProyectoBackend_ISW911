@@ -1,30 +1,71 @@
-//Todos los endpoint de mi Cliente estan aqui 
-const express = require("express"); 
-
-const ServicioClientes = require ('/./../services/clientes.js')
-
-const Clientes = new ServicioClientes();
-
+const { PrismaClient } = require("@prisma/client")
 
 const prisma = new PrismaClient();
 
-const Router = express.Router();
+class Clientes {
 
-Router.get("/", async (solicitud, respuesta) => {
-  const Clientes = await listadoDeClientes(solicitud.params.ClienteId);
-  respuesta.json(Clientes);
-});
+  constructor() {
 
-Router.get("/:ClienteId", async (solicitud, respuesta) => {
-  const Clientes = await listadoDeClientes(solicitud.params.ClienteId);
-  respuesta.json(Clientes);
-});
+  };
 
-function listadoDeClientes(ClienteId) {
+  async Agregar(Cliente) {
+  
+    try {
+     await prisma.clientes.create({
+        data: {
+          NombreCliente: Cliente.NombreCliente,
+          CedulaCliente: Cliente.CedulaCliente,
+          TelefonoCliente: Cliente.TelefonoCliente,
+          CorreoCliente: Cliente.CorreoCliente, 
+          ContrasenaCliente: Cliente.ContrasenaCliente
+        }
+      });
+    } catch (error) {
+      console.error(`No se pudo insertar el Cliente ${Cliente} debido al error: ${error}`);
+    }
+   
+  }; 
 
-  return Clientes.Listar(ClienteId)
- 
+  async Actualizar(ClienteId, NombreCliente) {
+    let resultado; 
+    try {
+      resultado = await prisma.Clientes.update({
+        where: { ClienteId: parseInt(ClienteId) },
+        data: { NombreCliente: NombreCliente },
+      });
+    } catch (error) {
+      console.error(`No se pudo actualizar la Cliente ${ClienteId} debido al error: ${error}`);
+    }
+    return resultado;
+  };
+
+  async Borrar(ClienteId) {
+    let resultado;
+    try {
+      resultado = await prisma.Clientes.delete({
+        where: {
+          ClienteId: parseInt(ClienteId),
+        },
+      });
+    } catch (error) {
+      console.error(`No se pudo borrar la Cliente ${ClienteId} debido al error: ${error}`);
+    }
+    return resultado;
+  };
+
+  Listar(ClienteId) {
+    let Clientes;
+    if (ClienteId === undefined) {
+      Clientes = prisma.Clientes.findMany();
+    } else {
+      Clientes = prisma.Clientes.findMany({
+        where: {
+          ClienteId: parseInt(ClienteId),
+        },
+      });
+    }
+    return Clientes;
+  };
 }
 
-
-module.exports = Router; 
+module.exports = Clientes;
