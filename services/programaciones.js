@@ -25,7 +25,7 @@ class Programacion {
    
   }; 
 
-  async Actualizar(ProgramacionId, NombreProgramacion) {
+  async Actualizar(ProgramacionId, EstadoProgramacion) {
     let resultado; 
     try {
       resultado = await prisma.programacion.update({

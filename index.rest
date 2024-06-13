@@ -1,21 +1,21 @@
 ###
 
-GET http://localhost/auditorias/ HTTP/1.1
+GET http://localhost/programaciones/ HTTP/1.1
 
 ###
 
-GET http://localhost/auditorias/4 HTTP/1.1
+GET http://localhost/programaciones/4 HTTP/1.1
 
 ###
 
-POST http://localhost/auditorias HTTP/1.1
+POST http://localhost/programaciones HTTP/1.1
 Content-Type: application/json
 
 {
   
-    "UsuarioId": 2,
-    "Accion": "TEST",
-    "Fecha": "2024-06-11T23:08:17.899Z"
+    "UsuarioId": 4,
+    "EstadoProgramacion": "Pendiente",
+    "SolicitudId": 4
 }
 
 ###

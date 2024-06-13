@@ -24,7 +24,7 @@ function listadoDeProgramaciones(ProgramacionId) {
 Router.post('/', async (solicitud, respuesta) => {
 
   const Programacion = {
-            ActualizadoEn: solicitud.body.ActualizadoEn,
+            ActualizadoEn: new Date(),
             UsuarioId: solicitud.body.UsuarioId, 
             EstadoProgramacion: solicitud.body.EstadoProgramacion, 
             SolicitudId: solicitud.body.SolicitudId
