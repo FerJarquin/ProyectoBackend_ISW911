@@ -1,6 +1,6 @@
 ###
 
-GET http://localhost/programaciones/ HTTP/1.1
+GET http://localhost/clientes/ HTTP/1.1
 
 ###
 
@@ -8,14 +8,16 @@ GET http://localhost/programaciones/4 HTTP/1.1
 
 ###
 
-POST http://localhost/programaciones HTTP/1.1
+POST http://localhost/clientes HTTP/1.1
 Content-Type: application/json
 
 {
   
-    "UsuarioId": 4,
-    "EstadoProgramacion": "Pendiente",
-    "SolicitudId": 4
+    "NombreCliente": "Testing",
+    "CedulaCliente": 12345678,
+    "TelefonoCliente": 987654321,
+    "CorreoCliente": "Testing@example.com",
+    "ContrasenaCliente": "passwordTesting"
 }
 
 ###
