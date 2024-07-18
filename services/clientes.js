@@ -14,8 +14,8 @@ class Clientes {
      await prisma.clientes.create({
         data: {
           NombreCliente: Cliente.NombreCliente,
-          CedulaCliente: Cliente.CedulaCliente,
-          TelefonoCliente: Cliente.TelefonoCliente,
+          CedulaCliente:  parseInt(Cliente.CedulaCliente),
+          TelefonoCliente:  parseInt(Cliente.TelefonoCliente),
           CorreoCliente: Cliente.CorreoCliente, 
           ContrasenaCliente: Cliente.ContrasenaCliente
         }

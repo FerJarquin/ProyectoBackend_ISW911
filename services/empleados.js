@@ -14,7 +14,7 @@ class Empleados {
      await prisma.empleados.create({
         data: {
           NombreEmpleado: Empleado.NombreEmpleado,
-          TelefonoEmpleado: Empleado.TelefonoEmpleado
+          TelefonoEmpleado: parseInt(Empleado.TelefonoEmpleado)
         }
       });
     } catch (error) {

@@ -6,6 +6,9 @@ const Usuarios = new ServicioUsuario();
 
 const Router = express.Router();
 
+Router.get('/autenticar', async (solicitud, respuesta) => {
+  respuesta.json(await Usuarios.Autenticacion(solicitud.body.CorreoUsuario, solicitud.body.ContrasenaUsuario));
+});
 
 Router.get('/', async (solicitud, respuesta) => {
   const Usuarios = await listadoDeUsuarios(solicitud.params.UsuarioId);

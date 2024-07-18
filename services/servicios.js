@@ -15,7 +15,7 @@ class Servicios {
         data: {
           NombreServicio: Servicio.NombreServicio,
           DescripcionServicio: Servicio.DescripcionServicio,
-          EmpleadoId: Servicio.EmpleadoId
+          EmpleadoId:  parseInt(Servicio.EmpleadoId,10)
         }
       });
     } catch (error) {

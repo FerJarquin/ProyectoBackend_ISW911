@@ -1,4 +1,7 @@
 const { PrismaClient } = require("@prisma/client")
+const bcrypt = require ('bcrypt');
+const crypto = require ('crypto');
+const jwt = require('jsonwebtoken');
 
 const prisma = new PrismaClient();
 
@@ -7,6 +10,29 @@ class Usuarios {
   constructor() {
 
   };
+
+  PalabraSecreta = "MiPalabraSecreta"; 
+
+  async Autenticacion(CorreoUsuario, ContrasenaUsuarioSinEncriptar)
+  {
+    let Usuario = await prisma.usuarios.findFirst({
+      where : {
+        CorreoUsuario: CorreoUsuario, 
+      },
+      select: {
+        Rol:true, 
+        ContrasenaUsuario: true
+      }
+    });
+    let resultado = await bcrypt.compare(ContrasenaUsuarioSinEncriptar, Usuario.ContrasenaUsuario); 
+    if (resultado === true){
+      return jwt.sign({data : Usuario.Rol}, this.PalabraSecreta, {expiresIn : '1m'})
+    }
+      else {
+        return false; 
+      }
+    
+  }; 
 
   async Agregar(Usuario) {
   
@@ -64,6 +90,7 @@ class Usuarios {
     }
     return Usuarios;
   };
+
 }
 
 module.exports = Usuarios;
