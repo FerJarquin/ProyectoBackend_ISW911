@@ -1,6 +1,6 @@
 ###
 
-GET http://localhost/usuarios/ HTTP/1.1
+GET http://localhost/clientes/ HTTP/1.1
 
 ###
 GET http://localhost/usuarios/autenticar HTTP/1.1
@@ -17,27 +17,31 @@ GET http://localhost/programaciones/4 HTTP/1.1
 
 ###
 
-POST http://localhost/usuarios/ HTTP/1.1
+POST http://localhost/empleados/ HTTP/1.1
 Content-Type: application/json
 
 {
   
-   "NombreUsuario": "Fernanda Jarquin",
-    "CorreoUsuario": "test24@example.com",
-    "ContrasenaUsuario": "$2b$10$2/EIOFcpD3CTniAgH.0ZX.0DXuQM48hGkNipxx5DQV2Ol9Ts4/RbW",
-    "Rol": "Administrador"
-  
+     "NombreEmpleado": Empleado.NombreEmpleado,
+     "TelefonoEmpleado": 2125151021
 }
 
 ###
 
-DELETE http://localhost/clientes/36 HTTP/1.1
- 
 ###
 
-PUT http://localhost/usuario/1 HTTP/1.1 
+DELETE http://localhost/clientes/35 HTTP/1.1
+
+###
+
+PUT http://localhost/clientes/35 HTTP/1.1 
 Content-Type: application/json
 
 {
-  "Accion": "TEST (V3)",
+
+   
+    "CedulaCliente": 131313,
+    "TelefonoCliente": 121212,
+    "CorreoCliente": "test@example.com",
+    "ContrasenaCliente": "password4567890"
 }

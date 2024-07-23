@@ -1,4 +1,5 @@
-const { PrismaClient } = require("@prisma/client")
+const { PrismaClient } = require("@prisma/client");
+const { Console } = require("console");
 
 const prisma = new PrismaClient();
 
@@ -9,9 +10,9 @@ class Empleados {
   };
 
   async Agregar(Empleado) {
-  
+
     try {
-     await prisma.empleados.create({
+      await prisma.empleados.create({
         data: {
           NombreEmpleado: Empleado.NombreEmpleado,
           TelefonoEmpleado: parseInt(Empleado.TelefonoEmpleado)
@@ -20,25 +21,39 @@ class Empleados {
     } catch (error) {
       console.error(`No se pudo insertar el Empleado ${Empleado} debido al error: ${error}`);
     }
-  }; 
+  };
 
-  async Actualizar(EmpleadoId, NombreEmpleado) {
+  async Actualizar(NombreEmpleado, TelefonoEmpleado, EmpleadoId) {
     let resultado; 
     try {
-      resultado = await prisma.Empleados.update({
+      resultado = await prisma.empleados.update({
         where: { EmpleadoId: parseInt(EmpleadoId) },
-        data: { NombreEmpleado: NombreEmpleado },
+        data: {  
+          NombreEmpleado: NombreEmpleado,
+          TelefonoEmpleado: parseInt(TelefonoEmpleado)
+         },
       });
     } catch (error) {
       console.error(`No se pudo actualizar la Empleado ${EmpleadoId} debido al error: ${error}`);
     }
-    return resultado;
+
   };
 
   async Borrar(EmpleadoId) {
+
     let resultado;
+    console.log(EmpleadoId)
     try {
-      resultado = await prisma.Empleados.delete({
+
+        // Eliminar registros dependientes primero
+    await prisma.servicios.deleteMany({
+      where: {
+        EmpleadoId: parseInt(EmpleadoId),
+      },
+    });
+
+      // Luego eliminar el registro principal
+      resultado = await prisma.empleados.delete({
         where: {
           EmpleadoId: parseInt(EmpleadoId),
         },

@@ -30,17 +30,21 @@ Router.post('/', async (solicitud, respuesta) => {
   return Empleados.Agregar(Empleado)
 });
 
+
+Router.put('/:EmpleadoId', async (solicitud, respuesta) => {
+  const { NombreEmpleado } = solicitud.body;
+  const { TelefonoEmpleado } = solicitud.body;
+  const { EmpleadoId } =  solicitud.params;
+  respuesta.json(Empleados.Actualizar(NombreEmpleado, TelefonoEmpleado, EmpleadoId));
+});
+
 Router.delete('/:EmpleadoId', async (solicitud, respuesta) => {
 
   respuesta.json(Empleados.Borrar(solicitud.params.EmpleadoId))
 
 });
 
-Router.put('/:EmpleadoId', async (solicitud, respuesta) => {
-const { EmpleadoId } = solicitud.params;
-const { NombreEmpleado } = solicitud.body;
-respuesta.json(Empleados.Actualizar(EmpleadoId, NombreEmpleado));
-});
+
 
 
 module.exports = Router;

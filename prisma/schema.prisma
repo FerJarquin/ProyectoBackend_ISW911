@@ -29,15 +29,17 @@ model Empleados {
   NombreEmpleado String
   TelefonoEmpleado Int
   ServicioDeEmpleado Servicios[] @relation("ModeloEmpleadoServicio")
+
 }
 
 model Servicios {
   ServicioId Int @id @default(autoincrement())
   NombreServicio String
   DescripcionServicio String
-  EmpleadoEncargado Empleados @relation("ModeloEmpleadoServicio", fields: [EmpleadoId], references: [EmpleadoId])
+  EmpleadoEncargado Empleados @relation("ModeloEmpleadoServicio", fields: [EmpleadoId], references: [EmpleadoId], onDelete: Cascade)
   EmpleadoId Int
   SolicitudServicio Solicitud[] @relation("ModeloSolicitudServicio")
+
 }
 
 model Solicitud {
@@ -45,11 +47,11 @@ model Solicitud {
   FechaSolicitud DateTime @default(now())
   FechaCita DateTime @default(now())
   ComentarioSolicitud String
-  SolicitudCliente Clientes @relation("ModeloClienteSolicitud", fields: [ClienteId], references: [ClienteId])
+  SolicitudCliente Clientes @relation("ModeloClienteSolicitud", fields: [ClienteId], references: [ClienteId], onDelete: Cascade)
   ClienteId Int
   ProgramacionSolicitud Programacion[] @relation("ModeloProgramacionSolicitud")
   ServicioId Int
-  ServcioSolicitud Servicios @relation("ModeloSolicitudServicio", fields: [ServicioId], references: [ServicioId])
+  ServcioSolicitud Servicios @relation("ModeloSolicitudServicio", fields: [ServicioId], references: [ServicioId], onDelete: Cascade)
 }
 
 model Usuarios {
@@ -68,8 +70,8 @@ model Programacion {
   UsuarioId Int
   EstadoProgramacion Estado @default(Pendiente)
   SolicitudId Int
-  SolicitudProgramda Solicitud @relation("ModeloProgramacionSolicitud", fields: [SolicitudId], references: [SolicitudId])
-  ProgramacionPorUsuarion Usuarios @relation("ModeloUsuarioProgramacion", fields: [UsuarioId], references: [UsuarioId])
+  SolicitudProgramda Solicitud @relation("ModeloProgramacionSolicitud", fields: [SolicitudId], references: [SolicitudId] ,onDelete: Cascade)
+  ProgramacionPorUsuarion Usuarios @relation("ModeloUsuarioProgramacion", fields: [UsuarioId], references: [UsuarioId], onDelete: Cascade)
 }
 
 model Auditoria {
@@ -77,7 +79,7 @@ model Auditoria {
   UsuarioId Int
   Accion String
   Fecha DateTime @default(now())
-  UsuarioAuditoria  Usuarios  @relation("ModeloUsuarioAuditoriaUsuario", fields: [UsuarioId], references: [UsuarioId])
+  UsuarioAuditoria  Usuarios  @relation("ModeloUsuarioAuditoriaUsuario", fields: [UsuarioId], references: [UsuarioId], onDelete: Cascade)
 }
 
 

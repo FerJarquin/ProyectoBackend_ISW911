@@ -42,7 +42,13 @@ Router.delete('/:ClienteId', async (solicitud, respuesta) => {
 Router.put('/:ClienteId', async (solicitud, respuesta) => {
   const { ClienteId } = solicitud.params;
   const { NombreCliente } = solicitud.body;
-  respuesta.json(Clientes.Actualizar(ClienteId, NombreCliente));
+  const { CedulaCliente  } = solicitud.body;
+  const { TelefonoCliente  } = solicitud.body;
+  const { CorreoCliente  } = solicitud.body;
+  const { ContrasenaCliente } = solicitud.body;
+
+  respuesta.json(Clientes.Actualizar(ClienteId, NombreCliente, CedulaCliente, TelefonoCliente, CorreoCliente, ContrasenaCliente));
+
 });
 
 
