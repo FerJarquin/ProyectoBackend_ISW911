@@ -50,15 +50,20 @@ class Usuarios {
    
   }; 
 
-  async Actualizar(UsuarioId, NombreUsuario) {
+  async Actualizar(UsuarioId, Usuario) {
     let resultado; 
     try {
       resultado = await prisma.usuarios.update({
         where: { UsuarioId: parseInt(UsuarioId) },
-        data: { NombreUsuario: NombreUsuario },
+        data: { 
+          NombreUsuario: Usuario.NombreUsuario,
+          CorreoUsuario: Usuario.CorreoUsuario, 
+          ContrasenaUsuario: Usuario.ContrasenaUsuario,
+          Rol: Usuario.Rol
+         },
       });
     } catch (error) {
-      console.error(`No se pudo actualizar la Usuario ${UsuarioId} debido al error: ${error}`);
+      console.error(`No se pudo actualizar la Usuario ${Usuario} debido al error: ${error}`);
     }
     return resultado;
   };

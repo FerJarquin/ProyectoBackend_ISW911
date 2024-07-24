@@ -42,8 +42,15 @@ Router.delete('/:UsuarioId', async (solicitud, respuesta) => {
 
 Router.put('/:UsuarioId', async (solicitud, respuesta) => {
 const { UsuarioId } = solicitud.params;
-const { NombreUsuario } = solicitud.body;
-respuesta.json(Usuarios.Actualizar(UsuarioId, NombreUsuario));
+
+const Usuario = {
+  NombreUsuario: solicitud.body.NombreUsuario,
+  CorreoUsuario: solicitud.body.CorreoUsuario,
+  ContrasenaUsuario: solicitud.body.ContrasenaUsuario, 
+  Rol: solicitud.body.Rol
+}
+
+respuesta.json(Usuarios.Actualizar(UsuarioId, Usuario));
 });
 
 
