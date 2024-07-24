@@ -32,17 +32,25 @@ Router.post('/', async (solicitud, respuesta) => {
   return Programaciones.Agregar(Programacion)
 });
 
+
+Router.put('/:ProgramacionId', async (solicitud, respuesta) => {
+  const { ProgramacionId } = solicitud.params;
+  const Programacion = {
+            ActualizadoEn: new Date(),
+            UsuarioId: solicitud.body.UsuarioId, 
+            EstadoProgramacion: solicitud.body.EstadoProgramacion, 
+            SolicitudId: solicitud.body.SolicitudId
+  }
+  respuesta.json(Programaciones.Actualizar(ProgramacionId, Programacion));
+  });
+
 Router.delete('/:ProgramacionId', async (solicitud, respuesta) => {
 
   respuesta.json(Programaciones.Borrar(solicitud.params.ProgramacionId))
 
 });
 
-Router.put('/:ProgramacionId', async (solicitud, respuesta) => {
-const { ProgramacionId } = solicitud.params;
-const { EstadoProgramacion } = solicitud.body;
-respuesta.json(Programaciones.Actualizar(ProgramacionId, EstadoProgramacion));
-});
+
 
 
 module.exports = Router;

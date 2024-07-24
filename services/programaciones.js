@@ -13,10 +13,10 @@ class Programacion {
     try {
      await prisma.programacion.create({
         data: {
-            ActualizadoEn: Programacion.ActualizadoEn,
-            UsuarioId: Programacion.UsuarioId, 
+            ActualizadoEn :new Date(),
+            UsuarioId: parseInt(Programacion.UsuarioId), 
             EstadoProgramacion: Programacion.EstadoProgramacion, 
-            SolicitudId: Programacion.SolicitudId
+            SolicitudId: parseInt(Programacion.SolicitudId)
         }
       });
     } catch (error) {
@@ -25,12 +25,17 @@ class Programacion {
    
   }; 
 
-  async Actualizar(ProgramacionId, EstadoProgramacion) {
+  async Actualizar(ProgramacionId, Programacion) {
     let resultado; 
     try {
       resultado = await prisma.programacion.update({
         where: { ProgramacionId: parseInt(ProgramacionId) },
-        data: { EstadoProgramacion: EstadoProgramacion },
+        data: { 
+           ActualizadoEn :new Date(),
+            UsuarioId: parseInt(Programacion.UsuarioId), 
+            EstadoProgramacion: Programacion.EstadoProgramacion, 
+            SolicitudId: parseInt(Programacion.SolicitudId)
+         },
       });
     } catch (error) {
       console.error(`No se pudo actualizar la Programacion ${ProgramacionId} debido al error: ${error}`);

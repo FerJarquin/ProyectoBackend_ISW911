@@ -109,11 +109,21 @@ async function main() {
     //Creacion de Usuarios  
     await prisma.usuarios.createMany({
         data: [
-            { NombreUsuario: 'Fernando Cespedes',CorreoUsuario: 'admin@example.com',ContrasenaUsuario: 'admin123', Rol: 'Administrador'},
-            {NombreUsuario: 'Laura García', CorreoUsuario: 'asistente@example.com', ContrasenaUsuario: 'asistente123', Rol: 'Asistente'},
-            {NombreUsuario: 'Carlos Martínez', CorreoUsuario: 'auditor@example.com', ContrasenaUsuario: 'auditor123', Rol: 'Auditoria'},
-            {NombreUsuario: 'María Rodríguez', CorreoUsuario: 'admin2@example.com', ContrasenaUsuario: 'admin1234', Rol: 'Administrador'},
-            {NombreUsuario: 'Pedro López', CorreoUsuario: 'asistente2@example.com', ContrasenaUsuario: 'asistente1234', Rol: 'Asistente'}  
+          { NombreUsuario: 'Fernando Cespedes', CorreoUsuario: 'admin@example.com', ContrasenaUsuario: 'admin123', Rol: 'Administrador' },
+          { NombreUsuario: 'Laura García', CorreoUsuario: 'asistente@example.com', ContrasenaUsuario: 'asistente123', Rol: 'Asistente' },
+          { NombreUsuario: 'Carlos Martínez', CorreoUsuario: 'auditor@example.com', ContrasenaUsuario: 'auditor123', Rol: 'Auditoria' },
+          { NombreUsuario: 'María Rodríguez', CorreoUsuario: 'admin2@example.com', ContrasenaUsuario: 'admin1234', Rol: 'Administrador' },
+          { NombreUsuario: 'Pedro López', CorreoUsuario: 'asistente2@example.com', ContrasenaUsuario: 'asistente1234', Rol: 'Asistente' },
+          { NombreUsuario: 'Ana Fernández', CorreoUsuario: 'ana@example.com', ContrasenaUsuario: 'ana123', Rol: 'Administrador' },
+          { NombreUsuario: 'José González', CorreoUsuario: 'jose@example.com', ContrasenaUsuario: 'jose123', Rol: 'Asistente' },
+          { NombreUsuario: 'Marta Sánchez', CorreoUsuario: 'marta@example.com', ContrasenaUsuario: 'marta123', Rol: 'Auditoria' },
+          { NombreUsuario: 'Luis Pérez', CorreoUsuario: 'luis@example.com', ContrasenaUsuario: 'luis123', Rol: 'Administrador' },
+          { NombreUsuario: 'Elena Ramírez', CorreoUsuario: 'elena@example.com', ContrasenaUsuario: 'elena123', Rol: 'Asistente' },
+          { NombreUsuario: 'Jorge Torres', CorreoUsuario: 'jorge@example.com', ContrasenaUsuario: 'jorge123', Rol: 'Auditoria' },
+          { NombreUsuario: 'Carmen Díaz', CorreoUsuario: 'carmen@example.com', ContrasenaUsuario: 'carmen123', Rol: 'Administrador' },
+          { NombreUsuario: 'Roberto Gómez', CorreoUsuario: 'roberto@example.com', ContrasenaUsuario: 'roberto123', Rol: 'Asistente' },
+          { NombreUsuario: 'Isabel Ruiz', CorreoUsuario: 'isabel@example.com', ContrasenaUsuario: 'isabel123', Rol: 'Auditoria' },
+          { NombreUsuario: 'Francisco Moreno', CorreoUsuario: 'francisco@example.com', ContrasenaUsuario: 'francisco123', Rol: 'Administrador' }
         ],
       })
 
