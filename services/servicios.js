@@ -24,12 +24,16 @@ class Servicios {
    
   }; 
 
-  async Actualizar(ServicioId, NombreServicio) {
+  async Actualizar(ServicioId, NombreServicio, DescripcionServicio, EmpleadoId) {
     let resultado; 
     try {
       resultado = await prisma.Servicios.update({
         where: { ServicioId: parseInt(ServicioId) },
-        data: { NombreServicio: NombreServicio },
+        data: { 
+          NombreServicio: NombreServicio ,
+          DescripcionServicio : DescripcionServicio,
+          EmpleadoId : parseInt(EmpleadoId)
+        },
       });
     } catch (error) {
       console.error(`No se pudo actualizar la Servicio ${ServicioId} debido al error: ${error}`);

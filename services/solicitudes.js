@@ -14,10 +14,10 @@ class Solicitud {
      await prisma.Solicitud.create({
         data: {
           FechaSolicitud:new Date(),
-          FechaCita: Solicitud.FechaCita,
+          FechaCita: new Date(2),
           ComentarioSolicitud: Solicitud.ComentarioSolicitud, 
-          ClienteId: Solicitud.ClienteId,
-          ServicioId: Solicitud.ServicioId
+          ClienteId: parseInt(Solicitud.ClienteId),
+          ServicioId: parseInt(Solicitud.ServicioId)
         }
       });
     } catch (error) {
@@ -26,15 +26,21 @@ class Solicitud {
    
   }; 
 
-  async Actualizar(SolicitudId, FechaSolicitud) {
+  async Actualizar(Solicitud,SolicitudId) {
     let resultado; 
     try {
       resultado = await prisma.Solicitud.update({
         where: { SolicitudId: parseInt(SolicitudId) },
-        data: { FechaSolicitud: FechaSolicitud },
+        data: { 
+          FechaSolicitud: Solicitud.FechaSolicitud,
+          FechaCita: Solicitud.FechaCita,
+          ComentarioSolicitud: Solicitud.ComentarioSolicitud, 
+          ClienteId: parseInt(Solicitud.ClienteId),
+          ServicioId: parseInt(Solicitud.ServicioId)
+         },
       });
     } catch (error) {
-      console.error(`No se pudo actualizar la Solicitud ${SolicitudId} debido al error: ${error}`);
+      console.error(`No se pudo actualizar la Solicitud ${Solicitud} debido al error: ${error}`);
     }
     return resultado;
   };

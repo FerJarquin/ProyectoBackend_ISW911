@@ -40,7 +40,9 @@ Router.delete('/:ServicioId', async (solicitud, respuesta) => {
 Router.put('/:ServicioId', async (solicitud, respuesta) => {
 const { ServicioId } = solicitud.params;
 const { NombreServicio } = solicitud.body;
-respuesta.json(Servicios.Actualizar(ServicioId, NombreServicio));
+const { DescripcionServicio } = solicitud.body;
+const { EmpleadoId } = solicitud.body;
+respuesta.json(Servicios.Actualizar(ServicioId, NombreServicio, DescripcionServicio, EmpleadoId));
 });
 
 

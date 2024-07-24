@@ -24,7 +24,6 @@ function listadoDeSolicitudes(SolicitudId) {
 Router.post('/', async (solicitud, respuesta) => {
 
   const Solicitud = {
-    FechaCita: solicitud.body.FechaCita,
     ComentarioSolicitud: solicitud.body.ComentarioSolicitud, 
     ClienteId: solicitud.body.ClienteId, 
     ServicioId:solicitud.body.ServicioId
@@ -32,17 +31,27 @@ Router.post('/', async (solicitud, respuesta) => {
   return Solicitudes.Agregar(Solicitud)
 });
 
+
+Router.put('/:SolicitudId', async (solicitud, respuesta) => {
+  const Solicitud = {
+    FechaSolicitud: solicitud.body.FechaSolicitud,
+    FechaCita: solicitud.body.FechaCita,
+    ComentarioSolicitud: solicitud.body.ComentarioSolicitud, 
+    ClienteId: solicitud.body.ClienteId, 
+    ServicioId:solicitud.body.ServicioId
+  }
+  const { SolicitudId } =  solicitud.params;
+  respuesta.json(Solicitudes.Actualizar(Solicitud,SolicitudId));
+  });
+  
+
+
 Router.delete('/:SolicitudId', async (solicitud, respuesta) => {
 
   respuesta.json(Solicitudes.Borrar(solicitud.params.SolicitudId))
 
 });
 
-Router.put('/:SolicitudId', async (solicitud, respuesta) => {
-const { SolicitudId } = solicitud.params;
-const { FechaSolicitud } = solicitud.body;
-respuesta.json(Solicitudes.Actualizar(SolicitudId, FechaSolicitud));
-});
 
 
 module.exports = Router;
