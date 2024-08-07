@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client")
 const bcrypt = require ('bcrypt');
+const { Console } = require("console");
 const crypto = require ('crypto');
 const jwt = require('jsonwebtoken');
 
@@ -13,6 +14,12 @@ class Usuarios {
 
   PalabraSecreta = "MiPalabraSecreta"; 
 
+  async ValidarToken(solicitud, PalabraSecreta) {
+     let Resultado = await jwt.verify(solicitud.headers.authorization.split(" ")[1],"MiPalabraSecreta");
+    return Resultado;
+  }
+
+
   async Autenticacion(CorreoUsuario, ContrasenaUsuarioSinEncriptar)
   {
     let Usuario = await prisma.usuarios.findFirst({
@@ -21,12 +28,23 @@ class Usuarios {
       },
       select: {
         Rol:true, 
-        ContrasenaUsuario: true
+        ContrasenaUsuario: true, 
+        UsuarioId:true
       }
     });
+
     let resultado = await bcrypt.compare(ContrasenaUsuarioSinEncriptar, Usuario.ContrasenaUsuario); 
+    
     if (resultado === true){
-      return jwt.sign({data : Usuario.Rol}, this.PalabraSecreta, {expiresIn : '1m'})
+
+    const token = jwt.sign({ UsuarioId: Usuario.UsuarioId, Rol: Usuario.Rol}, this.PalabraSecreta, {expiresIn : '2m'})
+
+    // Opcional: almacenar el token en la base de datos
+    await prisma.usuarios.update({
+      where: { UsuarioId: Usuario.UsuarioId},
+      data: { Token: token },
+    });
+    return token
     }
       else {
         return false; 
@@ -34,14 +52,16 @@ class Usuarios {
     
   }; 
 
+
   async Agregar(Usuario) {
-  
+    const contrasenaEncriptada = await bcrypt.hash(Usuario.ContrasenaUsuario, 10);
     try {
      await prisma.usuarios.create({
         data: {
           NombreUsuario: Usuario.NombreUsuario,
           CorreoUsuario: Usuario.CorreoUsuario, 
-          ContrasenaUsuario: Usuario.ContrasenaUsuario
+          ContrasenaUsuario: contrasenaEncriptada,
+          Token:""
         }
       });
     } catch (error) {

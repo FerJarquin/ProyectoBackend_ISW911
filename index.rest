@@ -1,29 +1,31 @@
 ###
 
-GET http://localhost/programaciones/ HTTP/1.1
-
+GET http://localhost/solicitudes HTTP/1.1
 ###
+
 GET http://localhost/usuarios/autenticar HTTP/1.1
 Content-Type: application/json
 
 {
-    "CorreoUsuario": "test24@example.com",
+    "CorreoUsuario": "test",
     "ContrasenaUsuario": "admin123"
 }
 
 ###
 
-GET http://localhost/programaciones/4 HTTP/1.1
+GET http://localhost/programaciones/estado/39 HTTP/1.1
 
 ###
 
-POST http://localhost/programaciones/ HTTP/1.1
+POST http://localhost/solicitudes/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "UsuarioId": 1,
-    "EstadoProgramacion": "Aprobada",
-    "SolicitudId": 1
+     
+    "FechaCita": "2024-08-15",
+    "ComentarioSolicitud": "Quiero remodelar mi cocina para hacerla más funcional y moderna.",
+    "ClienteId": 2,
+    "ServicioId": 2
 }
 
 ###

@@ -6,13 +6,25 @@ const Usuarios = new ServicioUsuario();
 
 const Router = express.Router();
 
+
+
+Router.get('/', async (solicitud, respuesta) => {
+  try{
+    const Usuarios = await listadoDeUsuarios(solicitud.params.UsuarioId);
+    await Usuarios.ValidarToken(solicitud);
+    respuesta.json(Usuarios);
+  }catch (error){
+    respuesta.status(401).json(error);
+  }
+});
+
+
 Router.get('/autenticar', async (solicitud, respuesta) => {
   respuesta.json(await Usuarios.Autenticacion(solicitud.body.CorreoUsuario, solicitud.body.ContrasenaUsuario));
 });
 
-Router.get('/', async (solicitud, respuesta) => {
-  const Usuarios = await listadoDeUsuarios(solicitud.params.UsuarioId);
-  respuesta.json(Usuarios);
+Router.get('/validarToken', async (solicitud, respuesta) => {
+  respuesta.json(await Usuarios.ValidarToken(solicitud));
 });
 
 Router.get('/:UsuarioId', async (solicitud, respuesta) => {

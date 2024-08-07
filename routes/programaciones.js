@@ -12,6 +12,11 @@ Router.get('/', async (solicitud, respuesta) => {
   respuesta.json(Programaciones);
 });
 
+Router.get('/estado/:ProgramacionId', async (solicitud, respuesta) => {
+  const Programaciones = await listadoDeEstadoProgramaciones(solicitud.params.ProgramacionId);
+  respuesta.json(Programaciones);
+});
+
 Router.get('/:ProgramacionId', async (solicitud, respuesta) => {
   const Programaciones = await listadoDeProgramaciones(solicitud.params.ProgramacionId);
   respuesta.json(Programaciones);
@@ -21,12 +26,15 @@ function listadoDeProgramaciones(ProgramacionId) {
   return Programaciones.Listar(ProgramacionId);
 }
 
+function listadoDeEstadoProgramaciones(ProgramacionId) {
+  return Programaciones.ListarEstadoProgramacion(ProgramacionId);
+}
+
 Router.post('/', async (solicitud, respuesta) => {
 
   const Programacion = {
             ActualizadoEn: new Date(),
             UsuarioId: solicitud.body.UsuarioId, 
-            EstadoProgramacion: solicitud.body.EstadoProgramacion, 
             SolicitudId: solicitud.body.SolicitudId
   }
   return Programaciones.Agregar(Programacion)

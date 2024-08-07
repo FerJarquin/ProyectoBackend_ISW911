@@ -62,6 +62,7 @@ model Usuarios {
   Rol Rol @default(Asistente)
   ProgramacionUsuario  Programacion[] @relation("ModeloUsuarioProgramacion")
   AuditoriaUsuario Auditoria [] @relation("ModeloUsuarioAuditoriaUsuario")
+  Token String @db.VarChar(200)
 }
 
 model Programacion {

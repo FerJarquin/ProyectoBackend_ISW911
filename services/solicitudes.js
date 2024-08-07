@@ -1,4 +1,5 @@
-const { PrismaClient } = require("@prisma/client")
+const { PrismaClient } = require("@prisma/client");
+
 
 const prisma = new PrismaClient();
 
@@ -11,19 +12,20 @@ class Solicitud {
   async Agregar(Solicitud) {
   
     try {
-     await prisma.Solicitud.create({
+      const nuevaSolicitud = await prisma.Solicitud.create({
         data: {
-          FechaSolicitud:new Date(),
-          FechaCita: new Date(2),
-          ComentarioSolicitud: Solicitud.ComentarioSolicitud, 
+          FechaSolicitud: new Date(),
+          FechaCita: new Date(Solicitud.FechaCita),
+          ComentarioSolicitud: Solicitud.ComentarioSolicitud,
           ClienteId: parseInt(Solicitud.ClienteId),
           ServicioId: parseInt(Solicitud.ServicioId)
         }
       });
+      return nuevaSolicitud; // Devolver el objeto de solicitud creado
     } catch (error) {
-      console.error(`No se pudo insertar el Solicitud ${Solicitud} debido al error: ${error}`);
+      console.error(`No se pudo insertar la Solicitud ${Solicitud} debido al error: ${error}`);
+      throw error; // Re-lanzar el error para que pueda ser manejado por el código que llama
     }
-   
   }; 
 
   async Actualizar(Solicitud,SolicitudId) {

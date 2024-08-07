@@ -15,7 +15,7 @@ class Programacion {
         data: {
             ActualizadoEn :new Date(),
             UsuarioId: parseInt(Programacion.UsuarioId), 
-            EstadoProgramacion: Programacion.EstadoProgramacion, 
+            EstadoProgramacion: "Pendiente", 
             SolicitudId: parseInt(Programacion.SolicitudId)
         }
       });
@@ -31,7 +31,7 @@ class Programacion {
       resultado = await prisma.programacion.update({
         where: { ProgramacionId: parseInt(ProgramacionId) },
         data: { 
-           ActualizadoEn :new Date(),
+            ActualizadoEn :new Date(),
             UsuarioId: parseInt(Programacion.UsuarioId), 
             EstadoProgramacion: Programacion.EstadoProgramacion, 
             SolicitudId: parseInt(Programacion.SolicitudId)
@@ -70,6 +70,32 @@ class Programacion {
     }
     return Programacion;
   };
+
+  async ListarEstadoProgramacion(SolicitudId) {
+    let programacion;
+    if (SolicitudId === undefined) {
+      programacion = await prisma.Programacion.findMany({
+        select: {
+          EstadoProgramacion: true,
+        },
+      });
+    } else {
+      programacion = await prisma.Programacion.findMany({
+        where: {
+          SolicitudId: parseInt(SolicitudId),
+        },
+        select: {
+          EstadoProgramacion: true,
+        },
+      });
+    }
+    return programacion;
+  };
 }
+
+
+
+
+
 
 module.exports = Programacion;
