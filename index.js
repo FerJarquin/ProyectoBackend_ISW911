@@ -10,3 +10,5 @@ routerAPI(app);
 app.listen(80, () => {
   console.log("Servidor iniciado en el puerto 80");
 });
+
+app.use(cors({ origin: 'http://localhost:4300', optionsSuccessStatus: 200 }));
