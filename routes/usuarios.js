@@ -9,13 +9,8 @@ const Router = express.Router();
 
 
 Router.get('/', async (solicitud, respuesta) => {
-  try{
-    const Usuarios = await listadoDeUsuarios(solicitud.params.UsuarioId);
-    await Usuarios.ValidarToken(solicitud);
-    respuesta.json(Usuarios);
-  }catch (error){
-    respuesta.status(401).json(error);
-  }
+  const Usuarios = await listadoDeUsuarios(solicitud.params.UsuarioId);
+  respuesta.json(Usuarios);
 });
 
 
