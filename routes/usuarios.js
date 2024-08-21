@@ -14,12 +14,16 @@ Router.get('/', async (solicitud, respuesta) => {
 });
 
 
-Router.get('/autenticar', async (solicitud, respuesta) => {
+Router.post('/autenticar', async (solicitud, respuesta) => {
   respuesta.json(await Usuarios.Autenticacion(solicitud.body.CorreoUsuario, solicitud.body.ContrasenaUsuario));
 });
 
-Router.get('/validarToken', async (solicitud, respuesta) => {
+Router.post('/validarToken', async (solicitud, respuesta) => {
   respuesta.json(await Usuarios.ValidarToken(solicitud));
+});
+
+Router.post("/desautenticar", async (solicitud, respuesta) => {
+  respuesta.json(await Usuarios.DesAutenticacion(solicitud.body.CorreoUsuario));
 });
 
 Router.get('/:UsuarioId', async (solicitud, respuesta) => {

@@ -48,8 +48,9 @@ CREATE TABLE `Usuarios` (
     `CorreoUsuario` VARCHAR(191) NOT NULL,
     `ContrasenaUsuario` VARCHAR(191) NOT NULL,
     `Rol` ENUM('Administrador', 'Asistente', 'Auditoria') NOT NULL DEFAULT 'Asistente',
-    `Token` VARCHAR(200) NOT NULL,
+    `Token` VARCHAR(300) NOT NULL,
 
+    UNIQUE INDEX `Usuarios_CorreoUsuario_key`(`CorreoUsuario`),
     PRIMARY KEY (`UsuarioId`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

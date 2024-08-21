@@ -61,19 +61,65 @@ class Solicitud {
     return resultado;
   };
 
-  Listar(SolicitudId) {
-    let Solicitud;
+  async Listar(SolicitudId) {
+    let solicitudes;
     if (SolicitudId === undefined) {
-      Solicitud = prisma.solicitud.findMany();
+      solicitudes = await prisma.solicitud.findMany({
+        include: {
+          SolicitudCliente: {
+            select: {
+              NombreCliente: true
+            }
+          },
+
+          ServcioSolicitud: {
+            select: {
+              NombreServicio: true
+            }
+          }, 
+
+        }
+      });
     } else {
-      Solicitud = prisma.solicitud.findMany({
+      solicitudes = await prisma.solicitud.findMany({
         where: {
           SolicitudId: parseInt(SolicitudId),
         },
+        include: {
+
+          SolicitudCliente: {
+            select: {
+              NombreCliente: true
+            }
+          }, 
+
+          ServcioSolicitud: {
+            select: {
+              NombreServicio: true
+            }
+          }, 
+
+       
+
+
+        }
       });
     }
+  
+    // Mapea las solicitudes para dar el formato deseado
+    const Solicitud = solicitudes.map(solicitud => {
+      return {
+        SolicitudId: solicitud.SolicitudId,
+        FechaSolicitud: solicitud.FechaSolicitud,
+        FechaCita: solicitud.FechaCita,
+        ComentarioSolicitud: solicitud.ComentarioSolicitud,
+        ClienteId: solicitud.SolicitudCliente.NombreCliente, // Extrae solo el NombreCliente
+        ServicioId: solicitud.ServcioSolicitud.NombreServicio, 
+      };
+    });
+  
     return Solicitud;
-  };
+  }
 }
 
 module.exports = Solicitud;

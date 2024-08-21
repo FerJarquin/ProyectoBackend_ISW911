@@ -1,16 +1,30 @@
 ###
 
-GET http://localhost/solicitudes HTTP/1.1
+GET http://localhost/usuarios HTTP/1.1
+
 ###
 
-GET http://localhost/usuarios/autenticar HTTP/1.1
+POST  http://localhost/usuarios/autenticar HTTP/1.1
 Content-Type: application/json
 
 {
     "CorreoUsuario": "test",
-    "ContrasenaUsuario": "admin123"
+    "ContrasenaUsuario": "1234"
 }
 
+###
+
+POST  http://localhost/usuarios/desautenticar HTTP/1.1
+Content-Type: application/json
+
+{
+    "CorreoUsuario": "test"
+}
+
+###
+
+POST http://localhost/usuarios/validarToken HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc3VhcmlvSWQiOjE2LCJSb2wiOiJBc2lzdGVudGUiLCJDb3JyZW9FbGVjdHJvbmljbyI6InRlc3QiLCJpYXQiOjE3MjQyMTMzNDAsImV4cCI6MTcyNDIxMzQ2MH0.hjpywUtI0FkMEre4vStcQdvFJBvFVnc3T_k-ScxVfoE
 ###
 
 GET http://localhost/programaciones/estado/39 HTTP/1.1
@@ -36,11 +50,6 @@ DELETE http://localhost/clientes/35 HTTP/1.1
 
 ###
 
-PUT http://localhost/programaciones/27 HTTP/1.1 
+PUT http://localhost/usuarios/17 HTTP/1.1 
 Content-Type: application/json
 
-{
-    "UsuarioId": 9,
-    "EstadoProgramacion": "Aprobado",
-    "SolicitudId": 20
-}

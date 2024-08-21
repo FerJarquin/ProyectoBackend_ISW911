@@ -57,7 +57,7 @@ model Solicitud {
 model Usuarios {
   UsuarioId Int @id @default(autoincrement())
   NombreUsuario String
-  CorreoUsuario String
+  CorreoUsuario String @unique
   ContrasenaUsuario String
   Rol Rol @default(Asistente)
   ProgramacionUsuario  Programacion[] @relation("ModeloUsuarioProgramacion")

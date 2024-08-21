@@ -1,6 +1,5 @@
 const { PrismaClient } = require("@prisma/client")
 const bcrypt = require ('bcrypt');
-const { Console } = require("console");
 const crypto = require ('crypto');
 const jwt = require('jsonwebtoken');
 
@@ -14,9 +13,50 @@ class Usuarios {
 
   PalabraSecreta = "MiPalabraSecreta"; 
 
-  async ValidarToken(solicitud, PalabraSecreta) {
-     let Resultado = await jwt.verify(solicitud.headers.authorization.split(" ")[1],"MiPalabraSecreta");
-    return Resultado;
+
+  async DesAutenticacion(CorreoUsuario) {
+    try {
+      await prisma.usuarios.update({
+        where: { 
+          CorreoUsuario: CorreoUsuario
+        },
+        data: {
+          Token: "Sesión cerrada",
+        },
+      });
+    } catch (err) {
+    console.log(err);
+    }
+  }
+
+
+  async ValidarToken(solicitud) {
+   
+    let token;
+    try {
+      token = solicitud.headers.authorization.split(" ")[1];
+     
+    } catch (err) {
+      return err;
+    }
+    let Resultado;
+    // Validación del token
+    try {
+      Resultado = await jwt.verify(token, this.PalabraSecreta);
+    } catch(err) {
+      return err;
+    }
+    // ¿El token brindado es del usuario?
+    let Usuario = await prisma.usuarios.findFirst({
+      where: {
+        CorreoUsuario: Resultado.CorreoElectronico,
+      },
+    });
+    if (Usuario.Token === token) {
+      return Resultado;
+    } else {
+      return false;
+    }
   }
 
 
@@ -29,28 +69,41 @@ class Usuarios {
       select: {
         Rol:true, 
         ContrasenaUsuario: true, 
-        UsuarioId:true
+        UsuarioId:true, 
+        CorreoUsuario: true
       }
     });
 
-    let resultado = await bcrypt.compare(ContrasenaUsuarioSinEncriptar, Usuario.ContrasenaUsuario); 
-    
+    let resultado 
+    try {
+      resultado =  await bcrypt.compare(ContrasenaUsuarioSinEncriptar, Usuario.ContrasenaUsuario); 
+    } catch (err) {
+      console.log(err);
+    }
+
     if (resultado === true){
 
-    const token = jwt.sign({ UsuarioId: Usuario.UsuarioId, Rol: Usuario.Rol}, this.PalabraSecreta, {expiresIn : '2m'})
-
-    // Opcional: almacenar el token en la base de datos
-    await prisma.usuarios.update({
-      where: { UsuarioId: Usuario.UsuarioId},
-      data: { Token: token },
-    });
-    return token
+      return this.GenerarToken(Usuario.UsuarioId, Usuario.Rol, Usuario.CorreoUsuario)
     }
       else {
         return false; 
-      }
+    }
     
   }; 
+
+
+  async GenerarToken(UsuarioId, Rol, CorreoElectronico) {
+
+    let token =  jwt.sign({ UsuarioId, Rol, CorreoElectronico}, this.PalabraSecreta, {expiresIn : '2m'}); 
+ 
+
+    await prisma.usuarios.update({
+      where: { UsuarioId: UsuarioId},
+      data: { Token: token },
+    });
+
+    return token;
+  }
 
 
   async Agregar(Usuario) {
